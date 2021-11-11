@@ -1,0 +1,211 @@
+2021-11-11 14:48:19,973 ERROR __main__ :Creating data of ../data/one_day_data/2020/07/2020-07-27/18-8.csv has failed with some errors.
+Traceback (most recent call last):
+  File "dataset/data-making/make_PRS_SLP_image.py", line 67, in make_img
+    plt.figure(figsize=(7, 8), dpi=80)
+  File "/home/akira/anaconda3/envs/p-poteka/lib/python3.7/site-packages/matplotlib/pyplot.py", line 546, in figure
+    **kwargs)
+  File "/home/akira/anaconda3/envs/p-poteka/lib/python3.7/site-packages/matplotlib/backend_bases.py", line 3358, in new_figure_manager
+    return cls.new_figure_manager_given_figure(num, fig)
+  File "/home/akira/anaconda3/envs/p-poteka/lib/python3.7/site-packages/matplotlib/backends/_backend_tk.py", line 904, in new_figure_manager_given_figure
+    canvas = cls.FigureCanvas(figure, master=window)
+  File "/home/akira/anaconda3/envs/p-poteka/lib/python3.7/site-packages/matplotlib/backends/_backend_tk.py", line 201, in __init__
+    width=w, height=h, borderwidth=0, highlightthickness=0)
+  File "/home/akira/anaconda3/envs/p-poteka/lib/python3.7/tkinter/__init__.py", line 2405, in __init__
+    Widget.__init__(self, master, 'canvas', cnf, kw)
+  File "/home/akira/anaconda3/envs/p-poteka/lib/python3.7/tkinter/__init__.py", line 2299, in __init__
+    (widgetName, self._w) + extra + self._options(cnf))
+KeyboardInterrupt
+2021-11-11 14:48:19,973 ERROR __main__ :Creating data of ../data/one_day_data/2020/07/2020-07-27/10-38.csv has failed with some errors.
+Traceback (most recent call last):
+  File "dataset/data-making/make_PRS_SLP_image.py", line 67, in make_img
+    plt.figure(figsize=(7, 8), dpi=80)
+  File "/home/akira/anaconda3/envs/p-poteka/lib/python3.7/site-packages/matplotlib/pyplot.py", line 546, in figure
+    **kwargs)
+  File "/home/akira/anaconda3/envs/p-poteka/lib/python3.7/site-packages/matplotlib/backend_bases.py", line 3358, in new_figure_manager
+    return cls.new_figure_manager_given_figure(num, fig)
+  File "/home/akira/anaconda3/envs/p-poteka/lib/python3.7/site-packages/matplotlib/backends/_backend_tk.py", line 904, in new_figure_manager_given_figure
+    canvas = cls.FigureCanvas(figure, master=window)
+  File "/home/akira/anaconda3/envs/p-poteka/lib/python3.7/site-packages/matplotlib/backends/_backend_tk.py", line 201, in __init__
+    width=w, height=h, borderwidth=0, highlightthickness=0)
+  File "/home/akira/anaconda3/envs/p-poteka/lib/python3.7/tkinter/__init__.py", line 2405, in __init__
+    Widget.__init__(self, master, 'canvas', cnf, kw)
+  File "/home/akira/anaconda3/envs/p-poteka/lib/python3.7/tkinter/__init__.py", line 2299, in __init__
+    (widgetName, self._w) + extra + self._options(cnf))
+KeyboardInterrupt
+2021-11-11 14:48:19,974 ERROR __main__ :Creating data of ../data/one_day_data/2020/07/2020-07-27/9-12.csv has failed with some errors.
+Traceback (most recent call last):
+  File "dataset/data-making/make_PRS_SLP_image.py", line 99, in make_img
+    plt.savefig(save_path)
+  File "/home/akira/anaconda3/envs/p-poteka/lib/python3.7/site-packages/matplotlib/pyplot.py", line 723, in savefig
+    res = fig.savefig(*args, **kwargs)
+  File "/home/akira/anaconda3/envs/p-poteka/lib/python3.7/site-packages/matplotlib/figure.py", line 2203, in savefig
+    self.canvas.print_figure(fname, **kwargs)
+  File "/home/akira/anaconda3/envs/p-poteka/lib/python3.7/site-packages/matplotlib/backend_bases.py", line 2126, in print_figure
+    **kwargs)
+  File "/home/akira/anaconda3/envs/p-poteka/lib/python3.7/site-packages/matplotlib/backends/backend_agg.py", line 514, in print_png
+    FigureCanvasAgg.draw(self)
+  File "/home/akira/anaconda3/envs/p-poteka/lib/python3.7/site-packages/matplotlib/backends/backend_agg.py", line 396, in draw
+    super().draw()
+  File "/home/akira/anaconda3/envs/p-poteka/lib/python3.7/contextlib.py", line 119, in __exit__
+    next(self.gen)
+  File "/home/akira/anaconda3/envs/p-poteka/lib/python3.7/site-packages/matplotlib/backend_bases.py", line 2809, in _wait_cursor_for_draw_cm
+    self.set_cursor(self._lastCursor)
+  File "/home/akira/anaconda3/envs/p-poteka/lib/python3.7/site-packages/matplotlib/backends/_backend_tk.py", line 557, in set_cursor
+    window.update_idletasks()
+  File "/home/akira/anaconda3/envs/p-poteka/lib/python3.7/tkinter/__init__.py", line 1182, in update_idletasks
+    self.tk.call('update', 'idletasks')
+KeyboardInterrupt
+2021-11-11 14:48:19,974 ERROR __main__ :Creating data of ../data/one_day_data/2020/07/2020-07-27/12-12.csv has failed with some errors.
+Traceback (most recent call last):
+  File "dataset/data-making/make_PRS_SLP_image.py", line 99, in make_img
+    plt.savefig(save_path)
+  File "/home/akira/anaconda3/envs/p-poteka/lib/python3.7/site-packages/matplotlib/pyplot.py", line 723, in savefig
+    res = fig.savefig(*args, **kwargs)
+  File "/home/akira/anaconda3/envs/p-poteka/lib/python3.7/site-packages/matplotlib/figure.py", line 2203, in savefig
+    self.canvas.print_figure(fname, **kwargs)
+  File "/home/akira/anaconda3/envs/p-poteka/lib/python3.7/site-packages/matplotlib/backend_bases.py", line 2126, in print_figure
+    **kwargs)
+  File "/home/akira/anaconda3/envs/p-poteka/lib/python3.7/site-packages/matplotlib/backends/backend_agg.py", line 514, in print_png
+    FigureCanvasAgg.draw(self)
+  File "/home/akira/anaconda3/envs/p-poteka/lib/python3.7/site-packages/matplotlib/backends/backend_agg.py", line 393, in draw
+    self.figure.draw(self.renderer)
+  File "/home/akira/anaconda3/envs/p-poteka/lib/python3.7/site-packages/matplotlib/artist.py", line 38, in draw_wrapper
+    return draw(artist, renderer, *args, **kwargs)
+  File "/home/akira/anaconda3/envs/p-poteka/lib/python3.7/site-packages/matplotlib/figure.py", line 1742, in draw
+    self.canvas.draw_event(renderer)
+  File "/home/akira/anaconda3/envs/p-poteka/lib/python3.7/site-packages/matplotlib/backend_bases.py", line 1708, in draw_event
+    self.callbacks.process(s, event)
+  File "/home/akira/anaconda3/envs/p-poteka/lib/python3.7/site-packages/matplotlib/cbook/__init__.py", line 196, in process
+    func(*args, **kwargs)
+  File "/home/akira/anaconda3/envs/p-poteka/lib/python3.7/site-packages/cartopy/mpl/gridliner.py", line 349, in _draw_event
+    self._update_labels_visibility(event.renderer)
+  File "/home/akira/anaconda3/envs/p-poteka/lib/python3.7/site-packages/cartopy/mpl/gridliner.py", line 764, in _update_labels_visibility
+    artist.update_bbox_position_size(renderer)
+  File "/home/akira/anaconda3/envs/p-poteka/lib/python3.7/site-packages/matplotlib/text.py", line 507, in update_bbox_position_size
+    tr = tr.translate(posx + x_box, posy + y_box)
+  File "/home/akira/anaconda3/envs/p-poteka/lib/python3.7/site-packages/matplotlib/transforms.py", line 1982, in translate
+    self._mtx = np.dot(translate_mtx, self._mtx)
+  File "<__array_function__ internals>", line 6, in dot
+KeyboardInterrupt
+2021-11-11 14:48:19,978 ERROR __main__ :Creating data of ../data/one_day_data/2020/07/2020-07-27/4-12.csv has failed with some errors.
+Traceback (most recent call last):
+  File "dataset/data-making/make_PRS_SLP_image.py", line 99, in make_img
+    plt.savefig(save_path)
+  File "/home/akira/anaconda3/envs/p-poteka/lib/python3.7/site-packages/matplotlib/pyplot.py", line 723, in savefig
+    res = fig.savefig(*args, **kwargs)
+  File "/home/akira/anaconda3/envs/p-poteka/lib/python3.7/site-packages/matplotlib/figure.py", line 2203, in savefig
+    self.canvas.print_figure(fname, **kwargs)
+  File "/home/akira/anaconda3/envs/p-poteka/lib/python3.7/site-packages/matplotlib/backend_bases.py", line 2126, in print_figure
+    **kwargs)
+  File "/home/akira/anaconda3/envs/p-poteka/lib/python3.7/site-packages/matplotlib/backends/backend_agg.py", line 514, in print_png
+    FigureCanvasAgg.draw(self)
+  File "/home/akira/anaconda3/envs/p-poteka/lib/python3.7/site-packages/matplotlib/backends/backend_agg.py", line 392, in draw
+    else nullcontext()):
+  File "/home/akira/anaconda3/envs/p-poteka/lib/python3.7/contextlib.py", line 112, in __enter__
+    return next(self.gen)
+  File "/home/akira/anaconda3/envs/p-poteka/lib/python3.7/site-packages/matplotlib/backend_bases.py", line 2806, in _wait_cursor_for_draw_cm
+    self.set_cursor(cursors.WAIT)
+  File "/home/akira/anaconda3/envs/p-poteka/lib/python3.7/site-packages/matplotlib/backends/_backend_tk.py", line 553, in set_cursor
+    window.configure(cursor=cursord[cursor])
+  File "/home/akira/anaconda3/envs/p-poteka/lib/python3.7/tkinter/__init__.py", line 1485, in configure
+    return self._configure('configure', cnf, kw)
+  File "/home/akira/anaconda3/envs/p-poteka/lib/python3.7/tkinter/__init__.py", line 1476, in _configure
+    self.tk.call(_flatten((self._w, cmd)) + self._options(cnf))
+KeyboardInterrupt
+2021-11-11 14:48:19,979 ERROR __main__ :Creating data of ../data/one_day_data/2020/07/2020-07-27/22-24.csv has failed with some errors.
+Traceback (most recent call last):
+  File "dataset/data-making/make_PRS_SLP_image.py", line 99, in make_img
+    plt.savefig(save_path)
+  File "/home/akira/anaconda3/envs/p-poteka/lib/python3.7/site-packages/matplotlib/pyplot.py", line 723, in savefig
+    res = fig.savefig(*args, **kwargs)
+  File "/home/akira/anaconda3/envs/p-poteka/lib/python3.7/site-packages/matplotlib/figure.py", line 2203, in savefig
+    self.canvas.print_figure(fname, **kwargs)
+  File "/home/akira/anaconda3/envs/p-poteka/lib/python3.7/site-packages/matplotlib/backend_bases.py", line 2126, in print_figure
+    **kwargs)
+  File "/home/akira/anaconda3/envs/p-poteka/lib/python3.7/site-packages/matplotlib/backends/backend_agg.py", line 514, in print_png
+    FigureCanvasAgg.draw(self)
+  File "/home/akira/anaconda3/envs/p-poteka/lib/python3.7/site-packages/matplotlib/backends/backend_agg.py", line 392, in draw
+    else nullcontext()):
+  File "/home/akira/anaconda3/envs/p-poteka/lib/python3.7/contextlib.py", line 112, in __enter__
+    return next(self.gen)
+  File "/home/akira/anaconda3/envs/p-poteka/lib/python3.7/site-packages/matplotlib/backend_bases.py", line 2806, in _wait_cursor_for_draw_cm
+    self.set_cursor(cursors.WAIT)
+  File "/home/akira/anaconda3/envs/p-poteka/lib/python3.7/site-packages/matplotlib/backends/_backend_tk.py", line 557, in set_cursor
+    window.update_idletasks()
+  File "/home/akira/anaconda3/envs/p-poteka/lib/python3.7/tkinter/__init__.py", line 1182, in update_idletasks
+    self.tk.call('update', 'idletasks')
+KeyboardInterrupt
+2021-11-11 14:48:19,986 ERROR __main__ :Creating data of ../data/one_day_data/2020/07/2020-07-27/23-4.csv has failed with some errors.
+Traceback (most recent call last):
+  File "dataset/data-making/make_PRS_SLP_image.py", line 67, in make_img
+    plt.figure(figsize=(7, 8), dpi=80)
+  File "/home/akira/anaconda3/envs/p-poteka/lib/python3.7/site-packages/matplotlib/pyplot.py", line 546, in figure
+    **kwargs)
+  File "/home/akira/anaconda3/envs/p-poteka/lib/python3.7/site-packages/matplotlib/backend_bases.py", line 3358, in new_figure_manager
+    return cls.new_figure_manager_given_figure(num, fig)
+  File "/home/akira/anaconda3/envs/p-poteka/lib/python3.7/site-packages/matplotlib/backends/_backend_tk.py", line 904, in new_figure_manager_given_figure
+    canvas = cls.FigureCanvas(figure, master=window)
+  File "/home/akira/anaconda3/envs/p-poteka/lib/python3.7/site-packages/matplotlib/backends/_backend_tk.py", line 204, in __init__
+    self._tkcanvas.create_image(w//2, h//2, image=self._tkphoto)
+  File "/home/akira/anaconda3/envs/p-poteka/lib/python3.7/tkinter/__init__.py", line 2489, in create_image
+    return self._create('image', args, kw)
+  File "/home/akira/anaconda3/envs/p-poteka/lib/python3.7/tkinter/__init__.py", line 2480, in _create
+    *(args + self._options(cnf, kw))))
+KeyboardInterrupt
+2021-11-11 14:48:19,986 ERROR __main__ :Creating data of ../data/one_day_data/2020/07/2020-07-27/23-54.csv has failed with some errors.
+Traceback (most recent call last):
+  File "dataset/data-making/make_PRS_SLP_image.py", line 67, in make_img
+    plt.figure(figsize=(7, 8), dpi=80)
+  File "/home/akira/anaconda3/envs/p-poteka/lib/python3.7/site-packages/matplotlib/pyplot.py", line 546, in figure
+    **kwargs)
+  File "/home/akira/anaconda3/envs/p-poteka/lib/python3.7/site-packages/matplotlib/backend_bases.py", line 3358, in new_figure_manager
+    return cls.new_figure_manager_given_figure(num, fig)
+  File "/home/akira/anaconda3/envs/p-poteka/lib/python3.7/site-packages/matplotlib/backends/_backend_tk.py", line 904, in new_figure_manager_given_figure
+    canvas = cls.FigureCanvas(figure, master=window)
+  File "/home/akira/anaconda3/envs/p-poteka/lib/python3.7/site-packages/matplotlib/backends/_backend_tk.py", line 204, in __init__
+    self._tkcanvas.create_image(w//2, h//2, image=self._tkphoto)
+  File "/home/akira/anaconda3/envs/p-poteka/lib/python3.7/tkinter/__init__.py", line 2489, in create_image
+    return self._create('image', args, kw)
+  File "/home/akira/anaconda3/envs/p-poteka/lib/python3.7/tkinter/__init__.py", line 2480, in _create
+    *(args + self._options(cnf, kw))))
+KeyboardInterrupt
+2021-11-11 14:48:19,988 ERROR __main__ :Creating data of ../data/one_day_data/2020/07/2020-07-27/23-50.csv has failed with some errors.
+Traceback (most recent call last):
+  File "dataset/data-making/make_PRS_SLP_image.py", line 67, in make_img
+    plt.figure(figsize=(7, 8), dpi=80)
+  File "/home/akira/anaconda3/envs/p-poteka/lib/python3.7/site-packages/matplotlib/pyplot.py", line 546, in figure
+    **kwargs)
+  File "/home/akira/anaconda3/envs/p-poteka/lib/python3.7/site-packages/matplotlib/backend_bases.py", line 3358, in new_figure_manager
+    return cls.new_figure_manager_given_figure(num, fig)
+  File "/home/akira/anaconda3/envs/p-poteka/lib/python3.7/site-packages/matplotlib/backends/_backend_tk.py", line 905, in new_figure_manager_given_figure
+    manager = cls.FigureManager(canvas, num, window)
+  File "/home/akira/anaconda3/envs/p-poteka/lib/python3.7/site-packages/matplotlib/backends/_backend_tk.py", line 433, in __init__
+    self.toolbar = self._get_toolbar()
+  File "/home/akira/anaconda3/envs/p-poteka/lib/python3.7/site-packages/matplotlib/backends/_backend_tk.py", line 448, in _get_toolbar
+    toolbar = NavigationToolbar2Tk(self.canvas, self.window)
+  File "/home/akira/anaconda3/envs/p-poteka/lib/python3.7/site-packages/matplotlib/backends/_backend_tk.py", line 528, in __init__
+    NavigationToolbar2.__init__(self, canvas)
+  File "/home/akira/anaconda3/envs/p-poteka/lib/python3.7/site-packages/matplotlib/backend_bases.py", line 2708, in __init__
+    self._init_toolbar()
+  File "/home/akira/anaconda3/envs/p-poteka/lib/python3.7/site-packages/matplotlib/backends/_backend_tk.py", line 590, in _init_toolbar
+    command=getattr(self, callback))
+  File "/home/akira/anaconda3/envs/p-poteka/lib/python3.7/site-packages/matplotlib/backends/_backend_tk.py", line 563, in _Button
+    master=self, text=text, padx=2, pady=2, image=im, command=command)
+  File "/home/akira/anaconda3/envs/p-poteka/lib/python3.7/tkinter/__init__.py", line 2369, in __init__
+    Widget.__init__(self, master, 'button', cnf, kw)
+  File "/home/akira/anaconda3/envs/p-poteka/lib/python3.7/tkinter/__init__.py", line 2299, in __init__
+    (widgetName, self._w) + extra + self._options(cnf))
+KeyboardInterrupt
+2021-11-11 14:48:19,996 ERROR __main__ :Creating data of ../data/one_day_data/2020/07/2020-07-27/6-8.csv has failed with some errors.
+Traceback (most recent call last):
+  File "dataset/data-making/make_PRS_SLP_image.py", line 67, in make_img
+    plt.figure(figsize=(7, 8), dpi=80)
+  File "/home/akira/anaconda3/envs/p-poteka/lib/python3.7/site-packages/matplotlib/pyplot.py", line 546, in figure
+    **kwargs)
+  File "/home/akira/anaconda3/envs/p-poteka/lib/python3.7/site-packages/matplotlib/backend_bases.py", line 3358, in new_figure_manager
+    return cls.new_figure_manager_given_figure(num, fig)
+  File "/home/akira/anaconda3/envs/p-poteka/lib/python3.7/site-packages/matplotlib/backends/_backend_tk.py", line 888, in new_figure_manager_given_figure
+    window = tk.Tk(className="matplotlib")
+  File "/home/akira/anaconda3/envs/p-poteka/lib/python3.7/tkinter/__init__.py", line 2023, in __init__
+    self.tk = _tkinter.create(screenName, baseName, className, interactive, wantobjects, useTk, sync, use)
+KeyboardInterrupt
