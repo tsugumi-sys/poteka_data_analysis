@@ -3,7 +3,7 @@ import sys
 import logging
 import argparse
 import re
-from typing import Tuple
+from typing import List, Tuple
 import multiprocessing as mlp
 from joblib import Parallel, delayed
 
@@ -12,8 +12,8 @@ import pandas as pd
 from tqdm import tqdm
 
 sys.path.append(".")
-from common.constants import DATAFOLDER
 from common.progress_bar import custom_progressbar
+from dataset.nexra_settings.filenames import FILENAMES
 
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger("ExtractNexraDataLogger")
@@ -31,10 +31,9 @@ def main(save_dir_path: str, n_cpus: int):
         with custom_progressbar(tqdm(desc=f"Save Parquet {y} data ...", total=len(datetime_dirs))):
             Parallel(n_jobs=n_cpus)(
                 delayed(save_parquet_file)(
-                        save_dir_path=os.path.join(save_dir_path, y, datetime_dir[:8]),
-                        data_folder_path=os.path.join(root_dir, y, datetime_dir),
-                    )
-                    for datetime_dir in datetime_dirs
+                    save_dir_path=os.path.join(save_dir_path, y, datetime_dir[:8]), data_folder_path=os.path.join(root_dir, y, datetime_dir),
+                )
+                for datetime_dir in datetime_dirs
             )
 
 
@@ -43,17 +42,17 @@ def save_parquet_file(save_dir_path: str, data_folder_path: str) -> None:
     for filenames in FILENAMES.filenames_list:
         grd_filename = filenames["grd_filename"]
         ctl_filename = filenames["ctl_filename"]
-        param_tag = filenames["tag"].replace(" ", "_")
+        parquet_filename = filenames["parquet_filename"]
 
         data = load_grd_file(os.path.join(data_folder_path, grd_filename))
         longitudes, latitudes = get_lon_lat_from_ctl(os.path.join(data_folder_path, ctl_filename))
 
-        data = data[:len(longitudes)*len(latitudes)].reshape((len(latitudes), len(longitudes)))
+        data = data[: len(longitudes) * len(latitudes)].reshape((len(latitudes), len(longitudes)))
 
         df = pd.DataFrame(data=data, index=latitudes, columns=longitudes.astype(str))
 
         time_dir_name = data_folder_path.split("/")[-1]
-        save_filename = f"{time_dir_name[8:]}_{param_tag}.parquet.gzip"
+        save_filename = f"{time_dir_name[8:]}_{parquet_filename}"
         df.to_parquet(os.path.join(save_dir_path, save_filename), compression="gzip")
 
 
@@ -72,7 +71,7 @@ def load_grd_file(file_path: str) -> np.ndarray:
     return np.fromfile(file_path, dtype=">f").astype(np.float32)
 
 
-def load_ctl_file(file_path: str) -> list[str]:
+def load_ctl_file(file_path: str) -> List[str]:
     with open(file_path, "rb") as f:
         f = f.read()
 
@@ -132,7 +131,6 @@ def get_lon_lat_from_ctl(file_path: str) -> Tuple[np.ndarray, np.ndarray]:
         if is_ydef is True and match_float is not None:
             latitudes.append(float(match_float.group(0)))
 
-
     if len(longitudes) != x_size:
         raise ValueError(f"x_size: {x_size} doesn't match the longitudes length: {len(longitudes)} in {file_path}")
 
@@ -143,21 +141,12 @@ def get_lon_lat_from_ctl(file_path: str) -> Tuple[np.ndarray, np.ndarray]:
 
 
 if __name__ == "__main__":
-    parser = argparse.ArgumentParser(
-        description="NEXRA data extracting",
-        formatter_class=argparse.RawDescriptionHelpFormatter,
+    parser = argparse.ArgumentParser(description="NEXRA data extracting", formatter_class=argparse.RawDescriptionHelpFormatter,)
+    parser.add_argument(
+        "--save_dir_path", type=str, default="/nexra_data", help="absolute save directory path",
     )
     parser.add_argument(
-        "--save_dir_path",
-        type=str,
-        default="/nexra_data",
-        help="absolute save directory path",
-    )
-    parser.add_argument(
-        "--n_cpus",
-        type=int,
-        default="4",
-        help="cpu to use for multiprocessing",
+        "--n_cpus", type=int, default="4", help="cpu to use for multiprocessing",
     )
 
     args = parser.parse_args()
