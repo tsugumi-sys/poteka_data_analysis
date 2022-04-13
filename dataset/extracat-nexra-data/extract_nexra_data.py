@@ -56,17 +56,6 @@ def save_parquet_file(save_dir_path: str, data_folder_path: str) -> None:
         df.to_parquet(os.path.join(save_dir_path, save_filename), compression="gzip")
 
 
-class FILENAMES:
-    # List[Dict(grd_file, ctl_file, tag)]
-    filenames_list = [
-        {"grd_filename": "ss_vap_atm.grd", "ctl_filename": "ss_vap_atm.ctl", "tag": "Cumulative water vapor amount"},
-        {"grd_filename": "ss_ps.grd", "ctl_filename": "ss_ps.ctl", "tag": "Sea level correction pressure"},
-        {"grd_filename": "sa_tppn.grd", "ctl_filename": "sa_tppn.ctl", "tag": "Time accumulated rainfall (1hour)"},
-        {"grd_filename": "ss_u10m.grd", "ctl_filename": "ss_u10m.ctl", "tag": "Surface wind speed (U)"},
-        {"grd_filename": "ss_v10m.grd", "ctl_filename": "ss_v10m.ctl", "tag": "Surface wind speed (V)"},
-    ]
-
-
 def load_grd_file(file_path: str) -> np.ndarray:
     return np.fromfile(file_path, dtype=">f").astype(np.float32)
 
