@@ -15,24 +15,39 @@ from dataset.nexra_settings.filenames import ParquetFileNames
 
 class FigureSettings:
     # 1 hour cumulative rainfall settings
-    rainfall_cmap = cm.Blues
-    rainfall_cbar_label = "1 hour cumulative rainfall (mm)"
-    rainfall_clevs = None
+    rainfall_cmap = cm.YlGnBu
+    rainfall_cbar_label = "1 hour cumulative rainfall (mm/h)"
+    rainfall_clevs = np.arange(0, 51, 2.5)
 
     # cumulative humidity amout setings
     humidity_cmap = cm.Blues
     humidity_cbar_label = "Cumulative water vapor amount (kg/m^2)"
-    humidity_clevs = None
+    humidity_clevs = np.arange(0, 101, 5)
 
-    # Sea level correction pressure settings
-    sealevel_pressure_cmap = cmap = cm.Blues
-    sealevel_pressure_cbar_label = "Sea level correction pressure (hPa)"
-    sealevel_pressure_clevs = None
+    # pressure settings
+    pressure_cmap = cm.RdYlBu_r
+    pressure_cbar_label = "Pressure (hPa)"
+    pressure_clevs = np.arange(500, 1070, 10)
 
     # Wind settings
     wind_cmap = cm.viridis_r
     wind_cbar_label = "Wind Speed (m/s)"
-    wind_clevs = None
+    wind_clevs = np.arange(0, 41, 2.5)
+
+    # Temperature settings
+    temp_cmap = cm.coolwarm
+    temp_cbar_label = "Temperature (K)"
+    temp_clevs = np.arange(190, 341, 5)
+
+    # Cloud fraction settings
+    cloud_frac_cmap = cm.Blues
+    cloud_frac_cbar_label = "Cloud fraction"
+    cloud_frac_clevs = np.arange(0, 1.05, 0.05)
+
+    # Sea level pressure settings
+    slp_cmap = cm.coolwarm
+    slp_cbar_label = "Sea level pressure (hPa)"
+    slp_clevs = np.arange(910, 1140, 5)
 
 
 def save_fig(data_file_path: Union[str, List[str]], save_fig_path: str, color_bar_label: str, cmap, clevs: Optional[List] = None) -> None:
@@ -57,6 +72,9 @@ def save_fig(data_file_path: Union[str, List[str]], save_fig_path: str, color_ba
         # Convert 1 hour cumulative rainfall
         if ParquetFileNames.rainfall_filename in data_file_path:
             data *= 3600
+
+        if ParquetFileNames.pressure_filename in data_file_path or ParquetFileNames.sealevel_press_filename in data_file_path:
+            data /= 100
 
     grid_mesh = np.meshgrid(data.columns.astype(np.float32).to_numpy(), data.index.astype(np.float32).to_numpy())
     x_grid, y_grid = grid_mesh[0], grid_mesh[1]

@@ -50,5 +50,9 @@ extract_nexra_data: dataset/extracat-nexra-data/extract_nexra_data.py
 	  --save_dir_path=/Users/akiranoda/Desktop/extract_nexra_data/ \
 	  --n_cpus=4
 
+visualize_nexra_data: dataset/visualize_nexra_data/main.py
+	$(CONDA_ACTIVATE) p-poteka && python dataset/visualize_nexra_data/main.py \
+	  --n_cpus=8
+
 remove_files: remove_files.py
 	$(CONDA_ACTIVATE) p-poteka && python remove_files.py

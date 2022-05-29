@@ -1,8 +1,11 @@
+import logging
 from itertools import groupby
 import sys
 import multiprocessing as mlp
 import os
 from typing import List, Union
+import argparse
+import re
 
 from joblib import Parallel, delayed
 from tqdm import tqdm
@@ -11,7 +14,10 @@ sys.path.append(".")
 from common.progress_bar import custom_progressbar
 from common.constants import DATAFOLDER
 from dataset.visualize_nexra_data.visualize import FigureSettings, save_fig
-from dataset.nexra_settings.filenames import FILENAMES, ParquetFileNames
+from dataset.nexra_settings.filenames import ParquetFileNames
+
+logger = logging.getLogger("NexraVisualizeLogger")
+logging.basicConfig(level=logging.INFO)
 
 
 def main(n_cpus: int):
@@ -20,8 +26,12 @@ def main(n_cpus: int):
 
     nexra_data_dir = os.path.join(DATAFOLDER.data_root_path, "nexra_data")
     for year in os.listdir(nexra_data_dir):
-        for date in os.listdir(os.path.join(nexra_data_dir, year)):
+        datetime_dirs = os.listdir(os.path.join(nexra_data_dir, year))
+        datetime_dirs = [i for i in datetime_dirs if re.match("[0-9]{8}", i) is not None]
+        for date in datetime_dirs:
+            logger.info(f"Createing figure of {os.path.join(nexra_data_dir, year, date)}")
             data_filenames = os.listdir(os.path.join(nexra_data_dir, year, date))
+            data_filenames = [i for i in data_filenames if re.match(".+\.parquet\.gzip$", i) is not None]
             grouped_uvwind_data_filenames = group_uvwind_data_filenames(data_filenames)
             with custom_progressbar(tqdm(desc="Running save fig", total=len(data_filenames))):
                 Parallel(n_jobs=n_cpus)(
@@ -87,12 +97,45 @@ def exec_save_fig(root_dir_path: str, data_filename: Union[str, List[str]]):
                 cmap=FigureSettings.humidity_cmap,
                 clevs=FigureSettings.humidity_clevs,
             )
-        elif ParquetFileNames.sealevel_pressure_filename in data_filename:
+        elif ParquetFileNames.pressure_filename in data_filename:
             save_fig(
                 data_file_path=data_file_path,
                 save_fig_path=save_fig_path,
-                color_bar_label=FigureSettings.sealevel_pressure_cbar_label,
-                cmap=FigureSettings.sealevel_pressure_cmap,
-                clevs=FigureSettings.sealevel_pressure_clevs,
+                color_bar_label=FigureSettings.pressure_cbar_label,
+                cmap=FigureSettings.pressure_cmap,
+                clevs=FigureSettings.pressure_clevs,
+            )
+        elif ParquetFileNames.cloud_amount_filename in data_file_path:
+            save_fig(
+                data_file_path=data_file_path,
+                save_fig_path=save_fig_path,
+                color_bar_label=FigureSettings.cloud_frac_cbar_label,
+                cmap=FigureSettings.cloud_frac_cmap,
+                clevs=FigureSettings.cloud_frac_clevs,
+            )
+        elif ParquetFileNames.temperature_filename in data_file_path:
+            save_fig(
+                data_file_path=data_file_path,
+                save_fig_path=save_fig_path,
+                color_bar_label=FigureSettings.temp_cbar_label,
+                cmap=FigureSettings.temp_cmap,
+                clevs=FigureSettings.temp_clevs,
+            )
+        elif ParquetFileNames.sealevel_press_filename in data_file_path:
+            save_fig(
+                data_file_path=data_file_path,
+                save_fig_path=save_fig_path,
+                color_bar_label=FigureSettings.slp_cbar_label,
+                cmap=FigureSettings.slp_cmap,
+                clevs=FigureSettings.slp_clevs,
             )
 
+
+if __name__ == "__main__":
+    parser = argparse.ArgumentParser(description="NEXRA data visualize", formatter_class=argparse.RawDescriptionHelpFormatter,)
+    parser.add_argument(
+        "--n_cpus", type=int, default="4", help="cpu to use for multiprocessing",
+    )
+
+    args = parser.parse_args()
+    main(n_cpus=args.n_cpus)
