@@ -46,9 +46,9 @@ preprocess_rain_data: dataset/data-making/make_rain_image.py
 	--n_jobs=10
 
 extract_nexra_data: dataset/extracat-nexra-data/extract_nexra_data.py
-	$(CONDA_ACTIVATE) p-poteka && python dataset/extracat-nexra-data/extract_nexra_data.py \
+	python dataset/extracat-nexra-data/extract_nexra_data.py \
 	  --save_dir_path=/Users/akiranoda/Desktop/extract_nexra_data/ \
-	  --n_cpus=4
+	  --n_cpus=5
 
 visualize_nexra_data: dataset/visualize_nexra_data/main.py
 	$(CONDA_ACTIVATE) p-poteka && python dataset/visualize_nexra_data/main.py \
