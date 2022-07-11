@@ -41,14 +41,7 @@ def calc_u_v(df: pd.DataFrame, observation_point_name: str) -> List:
     return [observation_point_name, round(u_wind, 5), round(v_wind, 5)]
 
 
-def get_time_series_df(
-    one_day_data_dir_path: str,
-    year: str,
-    month: str,
-    date: str,
-    start_time: str,
-    end_time: str,
-) -> pd.DataFrame:
+def get_time_series_df(one_day_data_dir_path: str, year: str, month: str, date: str, start_time: str, end_time: str,) -> pd.DataFrame:
     """dataframe of p-poteka data columns with time column.
         The columns are like "hour-rain", "AT1", "RH1", "WS1", "V-Wind", "U-Wind", "PRS", "Time"
 
@@ -74,6 +67,10 @@ def get_time_series_df(
         _df["Station_Name"] = _df["Unnamed: 0"]
         time_step = f"{time_step}0" if time_step.split("-")[1] == "0" else time_step
         _df["Time"] = time_step.replace("-", ":")
+        # Replace outliers
+        # Check wind speed outliers
+        ws1_outlier_threshold = df["WS1"].quantile(0.98)
+        df.loc[df["WS1"] > ws1_outlier_threshold, "WS1"] = df["WS1"].quantile(0.95)
         wind_df = pd.DataFrame([calc_u_v(_df.loc[i, :], i) for i in _df.index], columns=["OB-Point", "U-Wind", "V-Wind"])
         _df["V-Wind"], _df["U-Wind"] = wind_df["V-Wind"], wind_df["U-Wind"]
         df = pd.concat([df, _df], axis=0, ignore_index=True)

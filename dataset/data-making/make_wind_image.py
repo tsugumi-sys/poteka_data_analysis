@@ -64,7 +64,11 @@ def make_abs_img(
 
     if is_data_file_exists and is_save_dir_exists and is_ymd_valid(year, month, date, data_file_path):
         try:
-            df = pd.read_csv(data_file_path, index_col=0)
+            df = pd.read_parquet(data_file_path)
+            df.set_index("Unnamed: 0", inplace=True)
+            # Check and replace outliers
+            ws1_outlier_threshold = df["WS1"].quantile(0.98)
+            df.loc[df["WS1"] > ws1_outlier_threshold, "WS1"] = df["WS1"].quantile(0.95)
 
             # Interpolate Data
             grid_size = 50
@@ -126,11 +130,11 @@ def make_abs_img(
             logger.exception(f"Creating data of {data_file_path} has failed with some erors")
     else:
         if not is_data_file_exists:
-            logger.error("data_file_path: %s does not exist.", data_file_path)
+            raise ValueError("data_file_path: %s does not exist.", data_file_path)
         elif not is_save_dir_exists:
-            logger.error("save_dir_path: %s does not exist.", save_dir_path)
+            raise ValueError("save_dir_path: %s does not exist.", save_dir_path)
         else:
-            logger.error("Year: %s, Month: %s, Date: %s does not match with %s", year, month, date, data_file_path)
+            raise ValueError("Year: %s, Month: %s, Date: %s does not match with %s", year, month, date, data_file_path)
 
 
 def make_uv_img(
@@ -151,7 +155,11 @@ def make_uv_img(
 
     if is_data_file_exists and is_save_dir_exists and is_ymd_valid(year, month, date, data_file_path):
         try:
-            df = pd.read_csv(data_file_path, index_col=0)
+            df = pd.read_parquet(data_file_path)
+            df.set_index("Unnamed: 0", inplace=True)
+            # Check and replace outliers
+            ws1_outlier_threshold = df["WS1"].quantile(0.98)
+            df.loc[df["WS1"] > ws1_outlier_threshold, "WS1"] = df["WS1"].quantile(0.95)
             wind_df = pd.DataFrame([calc_u_v(df.loc[i, :], i) for i in df.index], columns=["OB-POINT", "U-WIND", "V-WIND"],)
             wind_df = wind_df.set_index("OB-POINT")
             wind_df["LON"] = df["LON"]
@@ -236,6 +244,8 @@ def make_uv_img(
                 )
                 for i, val in enumerate(wind_df[key.upper()]):
                     ax.annotate(val, (df["LON"][i], df["LAT"][i]))
+                xxxx = dic[key]["save_path"]
+                logger.info(f"{xxxx} saved!!")
                 plt.savefig(dic[key]["save_path"])
                 plt.close()
 
@@ -253,11 +263,11 @@ def make_uv_img(
             logger.exception(f"Creating data of {data_file_path} has failed with some erors")
     else:
         if not is_data_file_exists:
-            logger.error("data_file_path: %s does not exist.", data_file_path)
+            raise ValueError("data_file_path: %s does not exist.", data_file_path)
         elif not is_save_dir_exists:
-            logger.error("save_dir_path: %s does not exist.", save_dir_path)
+            raise ValueError("save_dir_path: %s does not exist.", save_dir_path)
         else:
-            logger.error("Year: %s, Month: %s, Date: %s does not match with %s", year, month, date, data_file_path)
+            raise ValueError("Year: %s, Month: %s, Date: %s does not match with %s", year, month, date, data_file_path)
 
 
 if __name__ == "__main__":
@@ -316,4 +326,4 @@ if __name__ == "__main__":
                     for conf in confs
                 )
 
-        send_line("Creating wind data has finished.")
+        # send_line("Creating wind data has finished.")

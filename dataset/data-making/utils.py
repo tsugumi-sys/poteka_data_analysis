@@ -1,7 +1,11 @@
 import os
+import sys
 from typing import Union, Dict, List
 import contextlib
 import joblib
+
+sys.path.append(".")
+from common.utils import timestep_csv_names
 
 
 def gen_data_config(data_root_path: str, save_dir_name: str,) -> List[Dict[str, Union[str, int]]]:
@@ -13,9 +17,11 @@ def gen_data_config(data_root_path: str, save_dir_name: str,) -> List[Dict[str, 
         for month in os.listdir(root_folder_path + f"/{year}"):
             for date in os.listdir(root_folder_path + f"/{year}/{month}"):
                 if len(os.listdir(root_folder_path + f"/{year}/{month}/{date}")) > 0:
-                    csv_file_names = os.listdir(root_folder_path + f"/{year}/{month}/{date}")
-                    for csv_file_name in csv_file_names:
-                        data_file_path = root_folder_path + f"/{year}/{month}/{date}/{csv_file_name}"
+                    # csv_file_names = os.listdir(root_folder_path + f"/{year}/{month}/{date}")
+                    _timestep_csv_names = timestep_csv_names(delta=10)
+                    for csv_file_name in _timestep_csv_names:
+                        parquet_file_name = csv_file_name.replace(".csv", ".parquet.gzip")
+                        data_file_path = root_folder_path + f"/{year}/{month}/{date}/{parquet_file_name}"
                         conf = {}
                         conf["data_file_path"] = data_file_path
                         conf["csv_file_name"] = csv_file_name
