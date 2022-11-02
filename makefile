@@ -11,39 +11,58 @@ data_clearning:
 
 test: test.py
 	$(CONDA_ACTIVATE) p-poteka && python test.py
+	
+preprocess_data:
+	make preprocess_oneday_data && \
+	make preprocess_pressure_data && make preprocess_slp_data && \
+	make preprocess_humidity_data && \
+	make preprocess_temp_data && \
+	make preprocess_wind_data && make preprocess_abs_wind_data && \
+	make preprocess_rain_data
+	
+preprocess_oneday_data:
+	$(CONDA_ACTIVATE) p-poteka && python dataset/data-making/make_oneday_data.py \
+		--n_jobs=13 \
+		--delta=5
 
 preprocess_pressure_data: dataset/data-making/make_PRS_SLP_image.py
 	$(CONDA_ACTIVATE) p-poteka && python dataset/data-making/make_PRS_SLP_image.py \
 		--data_root_path=../data \
 		--target=prs \
-		--n_jobs=10
+		--n_jobs=13
 
 preprocess_slp_data: dataset/data-making/make_PRS_SLP_image.py
 	$(CONDA_ACTIVATE) p-poteka && python dataset/data-making/make_PRS_SLP_image.py \
 		--data_root_path=../data \
 		--target=slp \
-		--n_jobs=10
+		--n_jobs=13
 
 preprocess_humidity_data: dataset/data-making/make_humidity_image.py
 	$(CONDA_ACTIVATE) p-poteka && python dataset/data-making/make_humidity_image.py \
 	--data_root_path=../data \
-	--n_jobs=10
+	--n_jobs=13
 
 preprocess_temp_data: dataset/data-making/make_temp_image.py
 	$(CONDA_ACTIVATE) p-poteka && python dataset/data-making/make_temp_image.py \
 	--data_root_path=../data \
-	--n_jobs=5
+	--n_jobs=13
 
 preprocess_wind_data: dataset/data-making/make_wind_image.py
 	$(CONDA_ACTIVATE) p-poteka && python dataset/data-making/make_wind_image.py \
 	--data_root_path=../data \
-	--n_jobs=10 \
+	--n_jobs=13 \
+	--target=uv
+
+preprocess_abs_wind_data: dataset/data-making/make_wind_image.py
+	$(CONDA_ACTIVATE) p-poteka && python dataset/data-making/make_wind_image.py \
+	--data_root_path=../data \
+	--n_jobs=13 \
 	--target=abs
 
 preprocess_rain_data: dataset/data-making/make_rain_image.py
 	$(CONDA_ACTIVATE) p-poteka && python dataset/data-making/make_rain_image.py \
 	--data_root_path=../data \
-	--n_jobs=10
+	--n_jobs=13
 
 extract_nexra_data: dataset/extracat-nexra-data/extract_nexra_data.py
 	python dataset/extracat-nexra-data/extract_nexra_data.py \

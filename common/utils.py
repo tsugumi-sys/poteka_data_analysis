@@ -1,10 +1,21 @@
-
-  
+import re
+import os
 from typing import Generator, List, Optional
 import pandas as pd
 import numpy as np
 from datetime import datetime, timedelta
 import tracemalloc
+
+
+def list_dir_by_pattern(root_dir_path: str, regex_pattern: str) -> List:
+    prog = re.compile(regex_pattern)
+    return [f for f in os.listdir(root_dir_path) if prog.match(f) is not None]
+
+
+def stringify_interger_month(m: int) -> str:
+    if m < 1 or m > 12:
+        raise ValueError(f"Invalid int for month: {m}")
+    return f"{m}" if m >= 10 else f"0{m}"
 
 
 def datetime_range(start: datetime, end: datetime, delta: timedelta) -> Generator[datetime, None, None]:

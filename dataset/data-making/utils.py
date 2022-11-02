@@ -8,7 +8,9 @@ sys.path.append(".")
 from common.utils import timestep_csv_names
 
 
-def gen_data_config(data_root_path: str, save_dir_name: str,) -> List[Dict[str, Union[str, int]]]:
+def gen_data_config(
+    data_root_path: str, save_dir_name: str,
+) -> List[Dict[str, Union[str, int]]]:
     data_configs = []
     root_folder_path = data_root_path + "/one_day_data"
     save_dir_path = data_root_path + f"/{save_dir_name}"
@@ -20,8 +22,10 @@ def gen_data_config(data_root_path: str, save_dir_name: str,) -> List[Dict[str, 
                     # csv_file_names = os.listdir(root_folder_path + f"/{year}/{month}/{date}")
                     _timestep_csv_names = timestep_csv_names(delta=10)
                     for csv_file_name in _timestep_csv_names:
-                        parquet_file_name = csv_file_name.replace(".csv", ".parquet.gzip")
-                        data_file_path = root_folder_path + f"/{year}/{month}/{date}/{parquet_file_name}"
+                        # parquet_file_name = csv_file_name.replace(".csv", ".parquet.gzip")
+                        data_file_path = (
+                            root_folder_path + f"/{year}/{month}/{date}/{csv_file_name}"
+                        )
                         conf = {}
                         conf["data_file_path"] = data_file_path
                         conf["csv_file_name"] = csv_file_name
@@ -51,4 +55,3 @@ def tqdm_joblib(tqdm_object):
     finally:
         joblib.parallel.BatchCompletionCallBack = old_batch_callback
         tqdm_object.close()
-
