@@ -20,7 +20,7 @@ def gen_data_config(
             for date in os.listdir(root_folder_path + f"/{year}/{month}"):
                 if len(os.listdir(root_folder_path + f"/{year}/{month}/{date}")) > 0:
                     # csv_file_names = os.listdir(root_folder_path + f"/{year}/{month}/{date}")
-                    _timestep_csv_names = timestep_csv_names(delta=10)
+                    _timestep_csv_names = timestep_csv_names(delta=5)
                     for csv_file_name in _timestep_csv_names:
                         # parquet_file_name = csv_file_name.replace(".csv", ".parquet.gzip")
                         data_file_path = (

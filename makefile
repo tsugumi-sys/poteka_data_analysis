@@ -13,7 +13,6 @@ test: test.py
 	$(CONDA_ACTIVATE) p-poteka && python test.py
 	
 preprocess_data:
-	make preprocess_oneday_data && \
 	make preprocess_pressure_data && make preprocess_slp_data && \
 	make preprocess_humidity_data && \
 	make preprocess_temp_data && \

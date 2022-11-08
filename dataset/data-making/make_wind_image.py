@@ -124,7 +124,7 @@ def make_abs_img(
         folders = [year, month, date]
         for folder in folders:
             if not os.path.exists(save_path + f"/{folder}"):
-                os.mkdir(save_path + f"/{folder}")
+                os.makedirs(save_path + f"/{folder}", exist_ok=True)
             save_path += f"/{folder}"
         save_csv_path = save_path + f"/{csv_file_name}"
         save_path += "/{}".format(csv_file_name.replace(".csv", ".png"))
@@ -241,7 +241,7 @@ def make_uv_img(
         folders = [year, month, date]
         for folder in folders:
             if not os.path.exists(save_path + f"/{folder}"):
-                os.mkdir(save_path + f"/{folder}")
+                os.makedirs(save_path + f"/{folder}", exist_ok=True)
             save_path += f"/{folder}"
         save_csv_path = save_path + f"/{csv_file_name}"
         save_path += "/{}".format(csv_file_name.replace(".csv", ".png"))
@@ -349,30 +349,37 @@ if __name__ == "__main__":
         if target == "abs":
             print("Creating abs wind data")
             # with tqdm_joblib(tqdm(desc="Create abs wind data", total=len(confs))):
-            Parallel(n_jobs=n_jobs)(
-                delayed(make_abs_img)(
-                    data_file_path=conf["data_file_path"],
-                    csv_file_name=conf["csv_file_name"],
-                    save_dir_path=conf["save_dir_path"],
-                    year=conf["year"],
-                    month=conf["month"],
-                    date=conf["date"],
+            try:
+                Parallel(n_jobs=n_jobs)(
+                    delayed(make_abs_img)(
+                        data_file_path=conf["data_file_path"],
+                        csv_file_name=conf["csv_file_name"],
+                        save_dir_path=conf["save_dir_path"],
+                        year=conf["year"],
+                        month=conf["month"],
+                        date=conf["date"],
+                    )
+                    for conf in confs
                 )
-                for conf in confs
-            )
+            except:
+                send_line("Error while creating wind data.")
+
         else:
             # with tqdm_joblib(tqdm(desc="Create uv wind data.", total=len(confs))):
             print("Creating uv wind data")
-            Parallel(n_jobs=n_jobs)(
-                delayed(make_uv_img)(
-                    data_file_path=conf["data_file_path"],
-                    csv_file_name=conf["csv_file_name"],
-                    save_dir_path=conf["save_dir_path"],
-                    year=conf["year"],
-                    month=conf["month"],
-                    date=conf["date"],
+            try:
+                Parallel(n_jobs=n_jobs)(
+                    delayed(make_uv_img)(
+                        data_file_path=conf["data_file_path"],
+                        csv_file_name=conf["csv_file_name"],
+                        save_dir_path=conf["save_dir_path"],
+                        year=conf["year"],
+                        month=conf["month"],
+                        date=conf["date"],
+                    )
+                    for conf in confs
                 )
-                for conf in confs
-            )
+            except:
+                send_line("Error while creating wind data.")
 
         send_line("Creating wind data has finished.")

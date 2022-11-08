@@ -102,7 +102,7 @@ def make_img(
         folders = [year, month, date]
         for folder in folders:
             if not os.path.exists(save_path + f"/{folder}"):
-                os.mkdir(save_path + f"/{folder}")
+                os.makedirs(save_path + f"/{folder}", exist_ok=True)
             save_path += f"/{folder}"
         save_csv_path = save_path + f"/{csv_file_name}"
         save_path += "/{}".format(csv_file_name.replace(".csv", ".png"))
@@ -172,17 +172,20 @@ if __name__ == "__main__":
 
         print(f"Creating {args.target} data ...")
         # with tqdm_joblib(tqdm(desc=f"Create {args.target} data", total=len(confs))):
-        Parallel(n_jobs=n_jobs)(
-            delayed(make_img)(
-                data_file_path=conf["data_file_path"],
-                csv_file_name=conf["csv_file_name"],
-                save_dir_path=conf["save_dir_path"],
-                year=conf["year"],
-                month=conf["month"],
-                date=conf["date"],
-                target=args.target,
+        try:
+            Parallel(n_jobs=n_jobs)(
+                delayed(make_img)(
+                    data_file_path=conf["data_file_path"],
+                    csv_file_name=conf["csv_file_name"],
+                    save_dir_path=conf["save_dir_path"],
+                    year=conf["year"],
+                    month=conf["month"],
+                    date=conf["date"],
+                    target=args.target,
+                )
+                for conf in confs
             )
-            for conf in confs
-        )
+        except:
+            send_line("Error while creating pressure data.")
 
         send_line(f"Creating {args.target} data has finished")
