@@ -56,7 +56,12 @@ def search_rainfalls_in_a_day(one_day_data_dir: str, date: str, minimum_rainfall
     rainfall_info = RainfallInfo()
     results = []
     for csv_filename in _timestep_csv_names:
-        df = pd.read_parquet(os.path.join(one_day_data_dir, csv_filename.replace(".csv", ".parquet.gzip")))
+        path = os.path.join(one_day_data_dir, csv_filename)
+        if not os.path.exists(path):
+            path = path.replace('.csv', '.parquet.gzip')
+            df = pd.read_parquet(path)
+        else:
+            df = pd.read_csv(path)
         rainfall_info.date = date
         # store start_time and peak_time, peak_value
         if df["hour-rain"].max() >= 5:

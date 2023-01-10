@@ -63,7 +63,10 @@ def get_time_series_df(one_day_data_dir_path: str, year: str, month: str, date: 
     time_steps = _timestep_names[start_idx : end_idx + 1]  # noqa: E203
     for time_step in time_steps:
         parquet_file_path = os.path.join(one_day_data_dir_path, year, month, f"{year}-{month}-{date}", f"{time_step}.parquet.gzip")
-        _df = pd.read_parquet(parquet_file_path, engine="pyarrow")
+        if os.path.exists(parquet_file_path):
+            _df = pd.read_parquet(parquet_file_path, engine="pyarrow")
+        else:
+            _df = pd.read_csv(parquet_file_path.replace('.parquet.gzip', '.csv'))
         _df["Station_Name"] = _df["Unnamed: 0"]
         time_step = f"{time_step}0" if time_step.split("-")[1] == "0" else time_step
         _df["Time"] = time_step.replace("-", ":")
