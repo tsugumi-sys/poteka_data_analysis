@@ -163,7 +163,7 @@ def get_compare_by_time_df(time_series_df: pd.DataFrame, set_zero_start: bool = 
     other_columns = ["Time", "Station_Name"]
     param_columns = [col for col in time_series_df.columns if col not in other_columns]
 
-    scaling_method = "both"
+    # scaling_method = "both"
 
     for col in time_series_df.columns:
         if col in param_columns:
@@ -176,8 +176,8 @@ def get_compare_by_time_df(time_series_df: pd.DataFrame, set_zero_start: bool = 
             elif scaling_method == "both":
                 param_df[col] = normalize_df_col(param_df, col)
                 param_df[col] = standarize_df_col(param_df, col)
-            else:
-                raise ValueError(f"Unknown scaling method: {scaling_method}")
+            # else:
+            #     raise ValueError(f"Unknown scaling method: {scaling_method}")
             if set_zero_start:
                 param_df[col] -= param_df.loc[param_df["Time"] == param_df["Time"][0]][col].mean()
             param_df.rename(columns={col: "Value"}, inplace=True)
